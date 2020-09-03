@@ -1,0 +1,36 @@
+<header [ngClass]="{
+  'place': page === 'place',
+  'group': page === 'group',
+  'index': page === 'index'
+}">
+  <div name="bk" class="bk-img" [ngSwitch]="page">
+    <div *ngSwitchCase="'index'" class="header-img1" [@header]></div>
+    <div *ngSwitchCase="'place'" class="header-img2" [@header]></div>
+    <div *ngSwitchCase="'group'" class="header-img3" [@header]></div>
+  </div>
+  <div class="nav-wrapper">
+    <nav>
+      <ul>
+        <a routerLink="/index" routerLinkActive="router-link-active">
+          <li>{{ selectedUser.name | firstName }}'s Home</li>
+        </a>
+        <a routerLink="/place" routerLinkActive="router-link-active">
+          <li>{{ selectedUser.name | firstName }}'s Places</li>
+        </a>
+        <a routerLink="/group" routerLinkActive="router-link-active">
+          <li>{{ selectedUser.name | firstName }}'s Group Trips</li>
+        </a>
+      </ul>
+      <div (click)="menuOpened = !menuOpened">
+        <icon-base class="menu" iconName="menu" iconColor="white" width="28" height="28">
+          <svg:g icon-three-dot #threeDots/>
+        </icon-base>
+      </div>
+      <app-menu-drawer [menuOpened]="menuOpened"></app-menu-drawer>
+
+      <app-nav-transition></app-nav-transition>
+
+      <app-stats *ngIf="page === 'index'" [selectedUser]="selectedUser"></app-stats>
+    </nav>
+  </div>
+</header>
